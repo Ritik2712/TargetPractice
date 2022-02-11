@@ -16,6 +16,14 @@ export const addMiss = () => {
     }
 }
 
+export const Addscore = () => {
+    return (dispatch) => {
+        dispatch({
+            type: "myscore"
+        })
+    }
+}
+
 export const Reset = () => {
     return (dispatch) => {
         dispatch({

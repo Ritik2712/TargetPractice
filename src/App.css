@@ -88,3 +88,31 @@ abbr {
   justify-content: center;
   align-items: center;
 }
+
+.list {
+  min-width: 45%;
+  margin: auto;
+}
+
+.list tr {
+  font-size: 40px;
+}
+
+.name {
+  display: inline-block;
+  width: 80%;
+  text-align: center;
+}
+
+.over {
+  font-size: 50px;
+  margin: 50px;
+}
+
+.Score {
+  /* border: 1px solid; */
+  display: inline-block;
+  width: 10%;
+  text-align: right;
+  margin: 0 5px;
+}

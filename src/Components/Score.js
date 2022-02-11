@@ -1,35 +1,48 @@
 import axios from 'axios';
-import React, { useState } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
+import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 export default function Score({ scores }) {
-    const [name, setName] = useState("")
+    const [Name, setName] = useState("")
     const [show, setShow] = useState(true)
+    const [Players, setPlayers] = useState([])
     var score = useSelector(state => state.scoreMiss)
-    var newScore
-    var Players = scores.map((item, i, arr) => {
-        if (item.name === "  " && score.score === 0) {
-            return
-        }
-        else if (score.score > item.score) {
-            if (score.miss) {
-                var li = <li key={i}><input placeholder='enter your name' autoFocus={true} onChange={(e) => setName(e.target.value)} />{score.score}{show ? <button onClick={() => saveNewScore()} >save</button> : null}</li>
-                newScore = score.score
-            } else {
-                li = <li key={item._id}>{score.name} {score.score} </li>
+    var { current: newScore } = useRef(0)
+    useEffect(() => {
+        setPlayers(scores.map((item, i, arr) => {
+            if (item.name === "  " && score.score === 0) {
+                return
             }
-            score = item
-            return li
-        }
-        else {
-            return <li key={item._id}>{item.name} {item.score}</li>
-        }
-    })
+            else if (score.score > item.score) {
+                if (score.name) {
+                    console.log("old name");
+                    li = <tr key={score._id}>
+                        <td>{i + 1}</td>
+                        <td className='name'>{score.name}</td>
+                        <td className='Score'>{score.score}</td>
+                    </tr>
+                    // li = <li key={item._id}><span className='name'>{score.name}</span> <span className='Score'>{score.score}</span> </li>
+                } else {
+                    console.log("new name");
+                    var li = <tr key={i}> <td>{i + 1}</td><td className='name'><input placeholder='enter your name' onChange={(e) => { setName(e.target.value); }} /></td><td className='Score'>{score.score}</td>{show ? <button onClick={() => saveNewScore()} >save</button> : null}</tr>
+                    newScore = score.score
+                }
+                score = item
+                return li
+            }
+            else {
+                console.log("no change");
+                return <tr key={item._id}> <td>{i + 1}</td><td className='name'>{item.name}</td> <td className='Score'>{item.score}</td></tr>
+            }
+        }))
 
+    }, [show])
+    console.log(Name);
     const saveNewScore = () => {
+        console.log(Name);
         const data = {
             score: newScore,
-            name,
+            name: Name,
             id: scores[9]._id
         }
         axios({
@@ -39,13 +52,11 @@ export default function Score({ scores }) {
         }).then(res => setShow(false))
             .catch(e => console.log(e))
     }
-
-    console.log(scores[9]._id);
     return (
         <div>
-            <ol>
+            <table className='list'>
                 {Players}
-            </ol>
+            </table>
         </div>
     )
 }
