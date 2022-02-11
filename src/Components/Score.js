@@ -9,7 +9,7 @@ export default function Score({ scores }) {
     var score = useSelector(state => state.scoreMiss)
     var { current: newScore } = useRef(0)
     useEffect(() => {
-        setPlayers(scores.map((item, i, arr) => {
+        setPlayers(scores.map((item, i) => {
             if (item.name === "  " && score.score === 0) {
                 return
             }
@@ -21,7 +21,6 @@ export default function Score({ scores }) {
                         <td className='name'>{score.name}</td>
                         <td className='Score'>{score.score}</td>
                     </tr>
-                    // li = <li key={item._id}><span className='name'>{score.name}</span> <span className='Score'>{score.score}</span> </li>
                 } else {
                     console.log("new name");
                     var li = <tr key={i}> <td>{i + 1}</td><td className='name'><input placeholder='enter your name' onChange={(e) => { setName(e.target.value); }} /></td><td className='Score'>{score.score}</td>{show ? <button onClick={() => saveNewScore()} >save</button> : null}</tr>
