@@ -3,7 +3,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 export default function Score({ scores }) {
-    const [Name, setName] = useState("")
+    // const [Name, setName] = useState("")
+    var Name = ""
     const [show, setShow] = useState(true)
     const [Players, setPlayers] = useState([])
     var score = useSelector(state => state.scoreMiss)
@@ -23,7 +24,7 @@ export default function Score({ scores }) {
                     </tr>
                 } else {
                     console.log("new name");
-                    var li = <tr key={i}> <td>{i + 1}</td><td className='name'><input placeholder='enter your name' onChange={(e) => { setName(e.target.value); }} /></td><td className='Score'>{score.score}</td>{show ? <button onClick={() => saveNewScore()} >save</button> : null}</tr>
+                    var li = <tr key={i}> <td>{i + 1}</td><td className='name'><input placeholder='enter your name' onChange={(e) => { Name = e.target.value; }} /></td><td className='Score'>{score.score}</td>{show ? <button onClick={() => saveNewScore()} >save</button> : null}</tr>
                     newScore = score.score
                 }
                 score = item

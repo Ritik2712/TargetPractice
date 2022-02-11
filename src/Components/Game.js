@@ -5,7 +5,7 @@ import { addMiss, Addscore, addScore, Reset } from '../Reducer/Action-Creator';
 
 export default function Game({ toggel }) {
     const [time, updateTime] = useState(15)
-    const [cor, updateCor] = useState({ x: getRandomInt(20, 876), y: getRandomInt(22, 576) })
+    const [cor, updateCor] = useState({ x: getRandomInt(40, 876), y: getRandomInt(42, 576) })
     var style = { left: `${cor.x}px`, top: `${cor.y}px` }
     const dispatch = useDispatch()
     const { myscore, miss, score } = useSelector(state => state.scoreMiss)
@@ -17,8 +17,8 @@ export default function Game({ toggel }) {
     }
     //Change Position
     function changeBtnDirection() {
-        let x = getRandomInt(20, 876)
-        let y = getRandomInt(22, 576)
+        let x = getRandomInt(40, 876)
+        let y = getRandomInt(42, 576)
         updateCor({ x, y })
     }
 
